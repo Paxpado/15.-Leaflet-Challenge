@@ -19,9 +19,9 @@ d3.json(eq).then(function (data) {
   function styleMarker(feature) {
     return {
       opacity: 1,
-      fillOpacity: 1,
+      fillOpacity: 0.8,
       fillColor: colorMarker(feature.properties.mag),
-      color: "#000000",
+      color: "black",
       radius: radiusMarker(feature.properties.mag),
       stroke: true,
       weight: 0.5
@@ -67,8 +67,6 @@ d3.json(eq).then(function (data) {
   }).addTo(myMap);
 
   // Create a legend
-  L.control.layers(baseMaps, overlayMaps).addTo(myMap);
-
   var legend_info = L.control({
     position: "bottomright"
   });
@@ -76,6 +74,7 @@ d3.json(eq).then(function (data) {
   // When the layer control is added, insert a div with the class of "legend".
   legend_info.onAdd = function () {
     var div = L.DomUtil.create("div", "legend");
+
     var grades = [0, 1, 2, 3, 4, 5];
     var colors = [
       "#98ee00",
@@ -87,8 +86,8 @@ d3.json(eq).then(function (data) {
     ];
 
     for (var i = 0; i < grades.length; i++) {
-      div.innerHTML += "<i style='background: " + colors[i] + "'></i> "
-      + grades[i] + (grades[i + 1] ? "&ndash;" + grades[i + 1] + "<br>" : "+");
+      div.innerHTML += 
+        "<i style='background: " + colors[i] + "'></i> " + grades[i] + (grades[i + 1] ? "&ndash;" + grades[i + 1] + "<br>" : "+");
     }
     return div;
   };
